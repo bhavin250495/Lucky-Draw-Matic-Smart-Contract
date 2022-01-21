@@ -16,11 +16,7 @@ class App extends Component {
     winners: []
   };
 
-  // refreshManager = async () => { 
-
-
-  // }
- 
+  
 
   async componentDidMount() {
     const manager = await lottery.methods.manager().call();
@@ -48,7 +44,6 @@ class App extends Component {
   }
 
   async shouldComponentUpdate(nextProps, nextState) {
-    console.log(this.state.result);
     if (this.state.result) {
 
       this.setState({ result: false });
@@ -61,19 +56,25 @@ class App extends Component {
   }
  
   onSubmit = async (event) => {
-    event.preventDefault();
-    const accounts = await web3.eth.getAccounts();
-    this.setState({ message: 'Waiting on transaction success...' });
-    await lottery.methods.enter().send({
 
-      from: accounts[0],
-      value: web3.utils.toWei(this.state.value, 'ether')
+    
+    if (event.target.value > 0.01) {
+      event.preventDefault();
+      const accounts = await web3.eth.getAccounts();
+      this.setState({ message: 'Waiting on transaction success...' });
+      await lottery.methods.enter().send({
+  
+        from: accounts[0],
+        value: web3.utils.toWei(this.state.value, 'ether')
+  
+      });
+      this.setState({value:""});
+      this.setState({ result: true });
+      this.setState({ value: '' });
+      this.setState({ message: 'Congrats you have been entered!' });
+    }else {alert("Enter minimum amount of matic");}
 
-    });
-    this.setState({value:""});
-    this.setState({ result: true });
-    this.setState({ value: '' });
-    this.setState({ message: 'Congrats you have been entered!' });
+    
 
   }
 
@@ -95,8 +96,7 @@ class App extends Component {
 
 
   render() {
-    //web3.eth.getAccounts().then(console.log);
-
+  
     const playerList = this.state.players.map((item, position) => {
       return <li>{item}</li>
     })
