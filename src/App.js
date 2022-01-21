@@ -108,7 +108,7 @@ class App extends Component {
         <div className="header">
           <h2>Lottery Contract</h2>
           <p>Address <a href="https://mumbai.polygonscan.com/address/0x5228ef51DE9f1595e03E0B1AE3eBaDD93aE2692b"  target="_blank" rel="noopener noreferrer" > {lottery.options.address} </a></p>
-          <p>Prize Money {web3.utils.fromWei(this.state.balance, 'ether')} Matic!</p>
+          <p>Loot {web3.utils.fromWei(this.state.balance, 'ether')} Matic!</p>
         </div>
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
 
